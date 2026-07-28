@@ -1,11 +1,25 @@
 # Örnek Prompt Şablonları
 
+**İçindekiler**
+1. [Loop](#1-loop-örneği)
+2. [Goal (hedef)](#2-goal-hedef-örneği)
+3. [Skill'i doğrudan çağırma](#3-skilli-doğrudan-çağıran-örnek)
+4. [Veri analizi + doğrulama](#4-veri-analizi--doğrulama-örneği)
+5. [Artifact — görselleştirme/rapor](#5-artifact-örneği)
+6. [Google Drive bağlantısı](#6-google-drive-bağlantısı)
+7. [Routine — zamanlanmış hatırlatma](#7-routine-örneği)
+8. [Project vs Cowork — hangisi ne zaman](#8-project-vs-cowork--hangisi-ne-zaman)
+
+---
+
 ## 1. Loop örneği
 Bir işi belirli aralıklarla otomatik tekrarlatmak için:
 ```
 /loop 30m "şu klasördeki yeni veri dosyalarını kontrol et, yeni bir şey varsa özetle"
 ```
-Not: Senin tez çalışman için genelde gerekmez (bkz. CLAUDE.md / genel rehber) — sadece nasıl göründüğünü örnek olarak gösteriyorum.
+Not: Senin tez çalışman için genelde gerekmez — sadece nasıl göründüğünü örnek olarak gösteriyorum.
+
+---
 
 ## 2. Goal (hedef) örneği
 Bir oturuma başlarken büyük resmi netleştirmek için:
@@ -16,18 +30,21 @@ Bu oturumda istediğim: [somut, küçük ve net bir adım]
 Bu oturum sonunda başarı kriteri: [ne tamamlanmış olmalı]
 ```
 
+---
+
 ## 3. Skill'i doğrudan çağıran örnek
-`token-efficient` skill'ini bilerek devreye sokmak istiyorsan:
+`token-efficient` veya `veri-dogrulama` skill'ini bilerek devreye sokmak istiyorsan:
 ```
 token-efficient skill'ini kullanarak şu kodu incele: [dosya/kod]
 ```
-veya
 ```
-Bu görevi token-efficient skill kurallarına göre yap: [görev]
+veri-dogrulama skill'ine göre şu hesaplamayı yap ve çapraz kontrol et: [görev]
 ```
-Not: Bu skill zaten kod/teknik işlerde otomatik devreye giriyor, açıkça çağırmak zorunda değilsin — ama emin olmak istersen bu şekilde belirtebilirsin.
+Not: Bu skill'ler zaten uygun bağlamda otomatik devreye giriyor, açıkça çağırmak zorunda değilsin — emin olmak istersen bu şekilde belirtebilirsin.
 
-## 4. Veri analizi + doğrulama örneği (önceki rehberden)
+---
+
+## 4. Veri analizi + doğrulama örneği
 ```
 Bağlam: [konu/bölüm]
 Veri: [gerçek veri, değiştirilmeyecek]
@@ -36,3 +53,60 @@ Doğrulama: sonucu bağımsız bir yöntemle çapraz kontrol et,
            varsayım varsa açıkça belirt
 Çıktı formatı: [tablo / metin / sadece sayı vb.]
 ```
+
+---
+
+## 5. Artifact örneği
+**Ne işe yarar:** Claude'un ürettiği içeriği (grafik, tablo, rapor sayfası) ayrı, düzenli bir görünümde gösterir — sohbet içine gömülü metin yerine.
+
+**Sen ne zaman kullanırsın:** Bir analiz sonucunu grafikle görmek istediğinde, ya da bulgularını düzenli bir rapor/sayfa halinde görmek istediğinde.
+```
+[X] verisindeki [Y] dağılımını grafikle göster,
+görsel bir rapor/sayfa olarak sun.
+```
+
+---
+
+## 6. Google Drive bağlantısı
+**Ne işe yarar:** Tezini zaten Google Docs'ta tutuyorsan, Drive'ı bağlarsan Claude dosyayı doğrudan okuyabilir — kopyala-yapıştıra gerek kalmaz.
+
+**Nasıl açılır:** claude.ai → Settings → Connectors → Google Drive → Connect.
+
+**Örnek prompt (bağladıktan sonra):**
+```
+Google Drive'daki "[dosya adı]" belgesini oku,
+[şu bölümü/kısmı] için önerilerini yaz.
+```
+Not: Bu bağlıysa Claude dosyayı okuyabilir ama **senin izinin olmadan üzerine yazmaz/değiştirmez** — bu zaten CLAUDE.md kuralı.
+
+---
+
+## 7. Routine örneği
+**Ne işe yarar:** Belirli bir gün/saatte otomatik olarak sana bir mesaj/hatırlatma gönderir. Loop'tan farkı: Loop kısa aralıklı, teknik/otomatik kontroller için; Routine daha uzun vadeli, planlı hatırlatmalar için (örn. haftalık).
+
+**Sen ne zaman kullanırsın:** Örn. her hafta başı o hafta tezde ne yapman gerektiğini hatırlatması için.
+```
+Her Pazartesi sabah 9'da bana şunu sor:
+"Bu hafta tezde hangi bölüm üzerinde çalışacaksın?"
+```
+Not: Bunu kurmak istersen bana söyle, ben kurabilirim — kendi kendine otomatik kurmam, senin onayınla.
+
+---
+
+## 8. Project vs Cowork — hangisi ne zaman
+
+| | Project | Cowork |
+|---|---|---|
+| Ne | Bir konuya ait dosya/bağlamı saklayan "klasör" | Claude'un birden fazla adımı **kendi başına** yürüttüğü çalışma modu |
+| Sen ne yaparsın | Konuşursun, sorarsın, birlikte yazarsın — her adımı sen yönlendirirsin | Görevi tarif edersin, Claude arka planda birden fazla adımı senin sürekli müdahalen olmadan yapar |
+| Ne zaman kullan | Tez bölümü yazarken, literatür tartışırken, taslak üzerinde ileri-geri konuşurken | "Şu 10 dosyayı tara, ortak temaları bul ve rapor et" gibi çok adımlı, arka planda yapılabilecek işler |
+
+**Pratik kural:**
+- Tek dosyayı okuyup tartışacaksan / birlikte yazacaksan → **Project** (normal sohbet).
+- Çok sayıda dosyayı tarama/özetleme/karşılaştırma gibi kendi başına yürütülebilecek bir işse → **Cowork** düşünülebilir.
+
+**Uyarı:** Cowork daha bağımsız çalışır, ara adımlarda durup sormaz — "her adımda onay" tercihinle kısmen çelişir. Veri bütünlüğünün kritik olduğu, gerçek veriyle yapılan işlerde Cowork yerine normal Claude Code + adım adım onay akışını tercih et. Cowork'ü daha çok, sonucu kontrol edip sürecini denetlemene gerek duymadığın düşük riskli işlerde kullan.
+
+---
+
+**Emin olmadığım bir özellik var:** Claude Code arayüzünde "Dispatch (Beta)" diye bir menü öğesi gördüm ama tam olarak nasıl çalıştığından emin değilim. Sana yanlış bilgi vermemek için burada eklemedim — merak edersen birlikte inceleyebiliriz.
