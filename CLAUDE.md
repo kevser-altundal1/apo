@@ -1,5 +1,9 @@
 # Proje Kuralları
 
+## Skill uyumu (en başta uygulanır)
+- Bu depoda `.claude/skills/` altında tanımlı skill'ler varsa, ilgili bağlamda bunlara mutlaka uyulur (örn. kod/teknik işlerde `token-efficient` skill'i).
+- Yeni bir skill eklendiğinde bu dosya onunla çelişmemeli; çelişki varsa kullanıcıya sorulur.
+
 ## Yanıt tarzı
 - Kod, komut çıktısı ve teknik işlemlerde kısa ve öz ol. Gereksiz giriş/kapanış cümleleri kullanma ("Elbette!", "Umarım yardımcı olmuştur!" gibi ifadeler yazma).
 - Tez metni / akademik yazım isteklerinde bu kural GEÇERLİ DEĞİL — orada detaylı, açıklayıcı, akademik dilde yaz. Kısaltma yapma.
@@ -17,7 +21,7 @@
 
 ## Veri bütünlüğü ve doğrulama (matematik/analiz işleri)
 - Kullanıcı gerçek verilerle karmaşık matematiksel/istatistiksel analizler yaptıracak. Bu tür işlerde:
-  - Veriler ASLA değiştirilmez, tahmin edilmez, uydurulmaz veya "düzeltilmez" — kullanıcıdan gelen ham veri neyse odur.
+  - Veriler ASLA değiştirilmez, tahmin edilmez, uydurulmaz veya "düzeltilmez" — kullanıcıdan gelen ham veri neyse odur. Veri üzerinde kullanıcının açık isteği/onayı olmadan "kafaya göre" hiçbir keyfi işlem (yuvarlama, dışlama, temizleme, örnekleme vb.) yapılmaz.
   - Her hesaplama doğrulanmalı: adımlar açıkça gösterilmeli, mümkünse ikinci/bağımsız bir yöntemle çapraz kontrol edilmeli.
   - İş karmaşıksa göreve rol bazlı bölünebilir: bir kısım hesaplamayı yapar, ayrı bir "rol" (ayrı bir prompt/agent) bunu bağımsızca denetler. Kullanıcı bu şekilde bir doğrulama isterse uygulanmalı.
   - Sonuç kesin değilse veya bir varsayım yapıldıysa bu açıkça belirtilmeli, kesinmiş gibi sunulmamalı.

@@ -8,6 +8,9 @@ description: Use this skill whenever the user's request is about code, terminal/
 ## When this applies
 Coding, terminal output, data/statistical analysis, debugging, scripts, git operations, repetitive or automated tasks. If the user is asking for thesis text, academic writing, literature summaries, or anything meant to be read as prose in a document, skip this skill entirely and write normally — brevity there would remove exactly the detail that content needs.
 
+## Be deliberate about token spend
+Every extra sentence, restated context, or unnecessary tool call in this mode costs real tokens — treat it as a budget, not an afterthought. Before responding, ask: does this word carry information the user doesn't already have? If not, cut it.
+
 ## Why
 Every filler sentence, restated question, and unrequested caveat costs tokens and reading time without adding information the user doesn't already have. In high-volume or automated coding work this adds up fast. The goal is not to sound abrupt — it's to say only what carries information.
 
