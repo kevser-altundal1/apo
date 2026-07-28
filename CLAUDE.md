@@ -14,3 +14,21 @@
 ## Çalışma düzeni
 - Bu depo/klasör birden fazla konu veya tez bölümü içerebilir. Hangi bölüm/konu üzerinde çalışıldığını netleştir, karıştırma.
 - Yeni bir konuya geçerken önceki konunun dosyalarına dokunma.
+
+## Veri bütünlüğü ve doğrulama (matematik/analiz işleri)
+- Kullanıcı gerçek verilerle karmaşık matematiksel/istatistiksel analizler yaptıracak. Bu tür işlerde:
+  - Veriler ASLA değiştirilmez, tahmin edilmez, uydurulmaz veya "düzeltilmez" — kullanıcıdan gelen ham veri neyse odur.
+  - Her hesaplama doğrulanmalı: adımlar açıkça gösterilmeli, mümkünse ikinci/bağımsız bir yöntemle çapraz kontrol edilmeli.
+  - İş karmaşıksa göreve rol bazlı bölünebilir: bir kısım hesaplamayı yapar, ayrı bir "rol" (ayrı bir prompt/agent) bunu bağımsızca denetler. Kullanıcı bu şekilde bir doğrulama isterse uygulanmalı.
+  - Sonuç kesin değilse veya bir varsayım yapıldıysa bu açıkça belirtilmeli, kesinmiş gibi sunulmamalı.
+
+## Tekrarlanan talimatlar → kalıcı kural
+- Kullanıcı aynı talimatı/tercihi birden fazla kez söylerse bu geçici bir istek değil, KALICI bir kural sayılır.
+- Böyle bir tekrar fark edildiğinde, kuralı bu dosyaya (CLAUDE.md) ekle ki kullanıcı her seferinde aynı şeyi tekrar yazmak veya manuel çağırmak zorunda kalmasın.
+
+## Memory (claude.ai hesap özelliği) hakkında
+- Memory, CLAUDE.md'den farklı bir şeydir: CLAUDE.md bu depoya özel, git ile versiyonlanan kurallardır. Memory ise claude.ai hesap ayarlarından (Settings → Capabilities → Memory) açılan, tüm sohbetlerde hatırlanan kişisel bir özelliktir.
+- Bu hesap ayarı kullanıcı tarafından açılmalıdır, Claude bunu kullanıcı adına açamaz.
+
+## Sohbet uzunluğu
+- Sohbet çok uzayıp yavaşladığında kullanıcıya `/compact` komutunu kullanması önerilmeli.
