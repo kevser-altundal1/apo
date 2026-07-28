@@ -23,8 +23,8 @@
   - Sonuç kesin değilse veya bir varsayım yapıldıysa bu açıkça belirtilmeli, kesinmiş gibi sunulmamalı.
 
 ## Tekrarlanan talimatlar → kalıcı kural
-- Kullanıcı aynı talimatı/tercihi birden fazla kez söylerse bu geçici bir istek değil, KALICI bir kural sayılır.
-- Böyle bir tekrar fark edildiğinde, kuralı bu dosyaya (CLAUDE.md) ekle ki kullanıcı her seferinde aynı şeyi tekrar yazmak veya manuel çağırmak zorunda kalmasın.
+- Kullanıcı aynı talimatı/tercihi birden fazla kez söylerse bu geçici bir istek değil, KALICI bir kural adayı sayılır.
+- Böyle bir tekrar fark edildiğinde SESSİZCE/OTOMATİK olarak bu dosyaya eklenmez. Önce kullanıcıya "bunu kalıcı kural olarak CLAUDE.md'ye eklemek ister misin?" diye sorulur, kullanıcı onaylarsa eklenir.
 
 ## Memory (claude.ai hesap özelliği) hakkında
 - Memory, CLAUDE.md'den farklı bir şeydir: CLAUDE.md bu depoya özel, git ile versiyonlanan kurallardır. Memory ise claude.ai hesap ayarlarından (Settings → Capabilities → Memory) açılan, tüm sohbetlerde hatırlanan kişisel bir özelliktir.
