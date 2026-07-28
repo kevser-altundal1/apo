@@ -36,3 +36,9 @@
 
 ## Sohbet uzunluğu
 - Sohbet çok uzayıp yavaşladığında kullanıcıya `/compact` komutunu kullanması önerilmeli.
+
+## Yeni oturuma başlarken kontrol listesi
+Yeni bir sohbet/oturuma başlarken şu 3 soru netleştirilmeli:
+1. Hangi bölüm/konu üzerinde çalışılıyor? (`tez/`, `veri/`, `analiz/`, `kaynaklar/` altında hangisi)
+2. Tez yazımı mı, kod/analiz mi yapılıyor?
+3. Bir önceki konudan geçiş varsa `/clear` yapıldı mı?
