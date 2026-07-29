@@ -11,6 +11,7 @@
 8. [Project vs Cowork — hangisi ne zaman](#8-project-vs-cowork--hangisi-ne-zaman)
 9. [Claude Code ne zaman kullanılır](#9-claude-code-ne-zaman-kullanılır)
 10. [Üçü birden — karar kuralı](#10-üçü-birden--tek-satırlık-karar-kuralı)
+11. [Genel prompt yazma formülü (Yap/Yapma)](#11-genel-prompt-yazma-formülü-yapyapma)
 
 ---
 
@@ -143,6 +144,46 @@ Not: Bunu kurmak istersen bana söyle, ben kurabilirim — kendi kendine otomati
 - **Gerçek veri/hesaplama/repo dosyası** var → **Code**
 - **Konuşma/fikir/taslak**, dosyaya dokunmaya gerek yok → **Project**
 - **Düşük riskli, çok adımlı** bir toplama/araştırma işi, sonucu kontrol etmen yeterli → **Cowork**
+
+---
+
+## 11. Genel prompt yazma formülü (Yap/Yapma)
+
+Uzun, birleşik cümleler yerine net maddeler kullan — dağınık bir cümlede detay atlanabilir, madde madde yazınca atlanmaz.
+
+**1) Yap / Yapma şeklinde ayır:**
+```
+Yapılacaklar:
+- [net madde]
+- [net madde]
+
+Yapılmayacaklar / Dikkat et:
+- [kaçınılması gereken şey]
+```
+
+**2) Her istekte şu 4 bilgiyi sırayla ver:**
+1. **Amaç** — Ne yapmak istiyorsun?
+2. **Kapsam** — Hangi dosya/yer değişecek?
+3. **İçerik/Detay** — Tam olarak ne olmalı?
+4. **Çıktı formatı** — Nasıl sunmamı istiyorsun? (mesaj metni, tablo, kod vb.)
+
+**3) Örnek kalıp:**
+```
+GÖREV: [ne yapılacak]
+
+ANA MESAJ / İÇERİK:
+- [madde 1]
+- [madde 2]
+
+EKLENECEK ADIMLAR:
+1. ...
+2. ...
+
+YAPMA:
+- [kaçınılacak şey]
+```
+
+Bu formatla yazınca hiçbir detayı atlamadan, tam istediğin gibi yaparım.
 
 ---
 
