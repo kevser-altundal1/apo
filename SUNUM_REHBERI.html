@@ -1,0 +1,556 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Claude Kurulum Rehberi</title>
+<style>
+  :root{
+    --amber:#FEF3C7;   --amber-bg:#FFFBEB;   --amber-ink:#92400E;  --amber-line:#F3D98B;
+    --mint:#D1FAE5;    --mint-bg:#ECFDF5;    --mint-ink:#065F46;   --mint-line:#A7E9C9;
+    --rose:#FCE7F3;    --rose-bg:#FDF2F8;    --rose-ink:#9D174D;   --rose-line:#F3B8D6;
+    --ink:#332E2A;
+    --muted:#7A7267;
+    --paper:#FFFDF9;
+    --code-bg:#2B2723;
+    --code-ink:#F3EFE7;
+    --code-head:#211E1B;
+    --radius:16px;
+  }
+  *{ box-sizing:border-box; }
+  html,body{ margin:0; padding:0; }
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+    line-height:1.65;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,h4{
+    font-family:"Iowan Old Style","Palatino Linotype","Book Antiqua",Georgia,serif;
+    font-weight:700;
+    text-wrap:balance;
+    margin:0 0 .5em;
+    color:var(--ink);
+  }
+  code, pre, .mono{ font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace; }
+  a{ color:var(--rose-ink); }
+
+  .wrap{ max-width:800px; margin:0 auto; padding:3rem 1.4rem 6rem; }
+
+  header.hero{
+    text-align:center;
+    padding:2.2rem 1rem 2.6rem;
+    margin-bottom:2.2rem;
+    border-radius:var(--radius);
+    background:linear-gradient(135deg,var(--amber-bg) 0%,var(--mint-bg) 50%,var(--rose-bg) 100%);
+    border:1px solid var(--amber-line);
+  }
+  header.hero .kicker{
+    display:inline-block;
+    font-size:.75rem; font-weight:700; letter-spacing:.09em; text-transform:uppercase;
+    color:var(--muted); margin-bottom:.8rem;
+  }
+  header.hero h1{ font-size:clamp(1.7rem,4vw,2.3rem); margin-bottom:.5rem; }
+  header.hero p{ color:var(--muted); max-width:52ch; margin:0 auto; font-size:1rem; }
+
+  nav.toc{
+    display:flex; flex-wrap:wrap; gap:.5rem;
+    justify-content:center;
+    margin-bottom:3rem;
+  }
+  nav.toc a{
+    text-decoration:none;
+    font-size:.82rem;
+    font-weight:600;
+    color:var(--ink);
+    background:var(--paper);
+    border:1px solid #EAE3D6;
+    border-radius:100px;
+    padding:.4rem .85rem;
+  }
+
+  section.card{
+    border-radius:var(--radius);
+    padding:1.8rem 1.9rem;
+    margin-bottom:1.6rem;
+    border:1px solid;
+    break-inside:avoid-page;
+  }
+  section.card.amber{ background:var(--amber-bg); border-color:var(--amber-line); }
+  section.card.mint{  background:var(--mint-bg);  border-color:var(--mint-line); }
+  section.card.rose{  background:var(--rose-bg);  border-color:var(--rose-line); }
+
+  .tag{
+    display:inline-flex; align-items:center; gap:.4rem;
+    font-size:.72rem; font-weight:800; letter-spacing:.07em; text-transform:uppercase;
+    padding:.3rem .7rem; border-radius:100px; margin-bottom:1rem;
+  }
+  .card.amber .tag{ background:var(--amber); color:var(--amber-ink); }
+  .card.mint .tag{ background:var(--mint); color:var(--mint-ink); }
+  .card.rose .tag{ background:var(--rose); color:var(--rose-ink); }
+
+  .card h2{ font-size:1.35rem; }
+  .card h3{ font-size:1.05rem; margin-top:1.1rem; }
+  .card p{ margin:.55rem 0; }
+  .card ul, .card ol{ padding-left:1.3rem; margin:.6rem 0; }
+  .card li{ margin:.3rem 0; }
+
+  .subcard{
+    background:rgba(255,255,255,.6);
+    border:1px solid rgba(0,0,0,.06);
+    border-radius:12px;
+    padding:1rem 1.1rem;
+    margin:1rem 0;
+  }
+
+  table{ width:100%; border-collapse:collapse; margin:.9rem 0; font-size:.9rem; background:rgba(255,255,255,.5); border-radius:10px; overflow:hidden; }
+  th,td{ text-align:left; padding:.55rem .7rem; border-bottom:1px solid rgba(0,0,0,.08); vertical-align:top; }
+  th{ font-size:.7rem; text-transform:uppercase; letter-spacing:.05em; color:var(--muted); font-weight:800; }
+  .tablewrap{ overflow-x:auto; }
+
+  pre.code{
+    background:var(--code-bg);
+    color:var(--code-ink);
+    border-radius:10px;
+    padding:0;
+    margin:.8rem 0;
+    overflow-x:auto;
+    font-size:.82rem;
+  }
+  .code-head{
+    display:flex; align-items:center; justify-content:space-between;
+    background:var(--code-head);
+    padding:.5rem .9rem;
+    border-radius:10px 10px 0 0;
+    font-size:.7rem;
+    letter-spacing:.05em;
+    text-transform:uppercase;
+    color:#BFB6A8;
+  }
+  pre.code code{ display:block; padding:1rem 1.1rem; white-space:pre-wrap; word-break:break-word; }
+  .copy-btn{
+    font-family:inherit;
+    font-size:.72rem;
+    font-weight:700;
+    background:transparent;
+    color:#E7DFD0;
+    border:1px solid rgba(255,255,255,.25);
+    border-radius:100px;
+    padding:.22rem .7rem;
+    cursor:pointer;
+  }
+  .copy-btn:hover{ background:rgba(255,255,255,.12); }
+
+  .steps{ counter-reset:step; list-style:none; padding:0; margin:1rem 0; }
+  .steps li{
+    counter-increment:step;
+    position:relative;
+    padding:.6rem 0 .6rem 2.4rem;
+    margin:0;
+    border-bottom:1px dashed rgba(0,0,0,.08);
+  }
+  .steps li:last-child{ border-bottom:none; }
+  .steps li::before{
+    content:counter(step);
+    position:absolute; left:0; top:.5rem;
+    width:1.6rem; height:1.6rem;
+    border-radius:50%;
+    background:var(--mint);
+    color:var(--mint-ink);
+    font-weight:800; font-size:.82rem;
+    display:flex; align-items:center; justify-content:center;
+  }
+
+  .filepath{
+    font-family:ui-monospace,monospace;
+    font-size:.82rem;
+    background:rgba(0,0,0,.06);
+    border-radius:6px;
+    padding:.1rem .45rem;
+  }
+
+  footer.end{ text-align:center; color:var(--muted); font-size:.85rem; padding-top:2rem; }
+
+  @media print{
+    body{ -webkit-print-color-adjust:exact; print-color-adjust:exact; background:#fff; }
+    .copy-btn{ display:none; }
+    nav.toc{ display:none; }
+    section.card{ break-before:page; }
+    section.card:first-of-type{ break-before:auto; }
+    a{ color:var(--ink); text-decoration:none; }
+  }
+  @media (prefers-reduced-motion: reduce){ *{ transition:none !important; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="hero">
+    <span class="kicker">📔 Kopyala · Yapıştır · Kur</span>
+    <h1>Claude Kurulum Rehberi</h1>
+    <p>Bu dokümandaki her şeyi olduğu gibi kopyalayıp kendi çalışma klasörüne uygulayabilirsin. Hiçbir içerik özetlenmedi — gerçek dosyaların tam metinleri burada.</p>
+  </header>
+
+  <nav class="toc">
+    <a href="#mantik">1 · Mantık</a>
+    <a href="#kurulum">2 · Kurulum</a>
+    <a href="#claudemd">3 · CLAUDE.md</a>
+    <a href="#skiller">4 · Skill'ler</a>
+    <a href="#promptlar">5 · Prompt Şablonları</a>
+    <a href="#formul">6 · Prompt Formülü</a>
+    <a href="#yol-haritasi">7 · Yol Haritası</a>
+  </nav>
+
+  <!-- 1. MANTIK -->
+  <section class="card amber" id="mantik">
+    <span class="tag">🟨 Mantık &amp; Yaklaşım</span>
+    <h2>Neden bu repoda doğrudan çalışılmamalı?</h2>
+    <p>Bu, kişisel bir çalışma reposu — "gel benimle burada çalış" demiyor. Amaç, sana <strong>örnek bir altyapı</strong> göstermek: aynısını kendi klasöründe, kendi konuna göre kurabilirsin.</p>
+    <div class="subcard">
+      <p><strong>Sorun:</strong> Başkasının hazır reposunda direkt çalışırsan kurallar, klasör düzeni ve hafıza (Memory) senin işine değil, o kişinin işine göre kurulmuş olur — karışır.</p>
+      <p><strong>Çözüm:</strong> Aşağıdaki bölümleri sırayla uygula: kendi klasörünü aç, kuralları (<code>CLAUDE.md</code>) ve skill'leri kendi klasörüne kopyala, Claude'u ona bağla.</p>
+    </div>
+    <p>Buradaki bilgilerin çoğu zaten Claude'un genel dokümantasyonunda var — bu doküman sadece hepsini tek yerde, uygulanabilir hale getiriyor.</p>
+  </section>
+
+  <!-- 2. KURULUM -->
+  <section class="card mint" id="kurulum">
+    <span class="tag">🟩 Kurulum Adımları</span>
+    <h2>Sıfırdan nasıl başlarsın?</h2>
+    <ol class="steps">
+      <li><strong>Klasörünü oluştur.</strong> Bilgisayarında veya Google Drive'ında boş bir çalışma klasörü aç.</li>
+      <li><strong>Kök dosyayı ekle.</strong> Klasörün en üstüne <span class="filepath">CLAUDE.md</span> adında bir dosya koy — tam içeriği aşağıda (bölüm 3).</li>
+      <li><strong>Skill'leri yerleştir.</strong> <span class="filepath">.claude/skills/</span> altına, aşağıdaki (bölüm 4) skill dosyalarını klasör klasör kopyala.</li>
+      <li><strong>Claude Code'u bağla.</strong>
+        <ul>
+          <li><em>Tarayıcıdan:</em> claude.ai → <strong>Code</strong> sekmesi → <strong>New</strong> → <strong>"+ Select repo…"</strong>. İndirmene gerek yok, klasörünü GitHub'a repo olarak koyup oradan seçersin.</li>
+          <li><em>Terminalden (CLI):</em> aşağıdaki komutu çalıştır, kurulum bitince klasörüne girip <code>claude</code> yaz.</li>
+        </ul>
+        <pre class="code"><div class="code-head"><span>Terminal</span><button class="copy-btn" onclick="copyCode(this)">Kopyala</button></div><code>npm install -g @anthropic-ai/claude-code</code></pre>
+      </li>
+    </ol>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Dosya/Klasör</th><th>Zorunlu mu</th><th>Ne işe yarar</th></tr></thead>
+        <tbody>
+          <tr><td><code>CLAUDE.md</code></td><td>Zorunlu</td><td>Claude'un her oturumda otomatik okuduğu kalıcı kurallar</td></tr>
+          <tr><td><code>.claude/skills/</code></td><td>Önerilen</td><td>Belirli bağlamda otomatik devreye giren davranışlar</td></tr>
+          <tr><td><code>prompt-sablonlari.md</code></td><td>Önerilen</td><td>Sık kullanacağın hazır prompt kalıpları</td></tr>
+          <tr><td><code>README.md</code></td><td>Opsiyonel</td><td>Repo haritası</td></tr>
+          <tr><td><code>tez/</code>, <code>veri/</code>, <code>analiz/</code>, <code>kaynaklar/</code></td><td>Kendine göre</td><td>Çalışma klasörleri — kendi konuna göre adlandırabilirsin</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- 3. CLAUDE.MD -->
+  <section class="card rose" id="claudemd">
+    <span class="tag">🟥 Kopyala-Yapıştır</span>
+    <h2><code>CLAUDE.md</code> — tam metin</h2>
+    <p>Bu dosyayı klasörünün en üstüne <span class="filepath">CLAUDE.md</span> adıyla kaydet, içine tamamını yapıştır.</p>
+    <pre class="code"><div class="code-head"><span>CLAUDE.md</span><button class="copy-btn" onclick="copyCode(this)">Kopyala</button></div><code># Proje Kuralları
+
+## Skill uyumu (en başta uygulanır)
+- Bu depoda `.claude/skills/` altında tanımlı skill'ler varsa, ilgili bağlamda bunlara mutlaka uyulur (örn. kod/teknik işlerde `token-efficient` skill'i).
+- Yeni bir skill eklendiğinde bu dosya onunla çelişmemeli; çelişki varsa kullanıcıya sorulur.
+
+## Yanıt tarzı
+- Kod, komut çıktısı ve teknik işlemlerde kısa ve öz ol. Gereksiz giriş/kapanış cümleleri kullanma ("Elbette!", "Umarım yardımcı olmuştur!" gibi ifadeler yazma).
+- Tez metni / akademik yazım isteklerinde bu kural GEÇERLİ DEĞİL — orada detaylı, açıklayıcı, akademik dilde yaz. Kısaltma yapma.
+- Kod örneklerine gereksiz yorum satırı ekleme; sadece anlaşılması zor bir kısım varsa tek satır açıklama yaz.
+
+## Veri güvenliği (en önemli kural)
+- Hiçbir dosyayı sormadan silme, üzerine yazma veya geri alınamaz şekilde değiştirme.
+- `git reset --hard`, `git push --force`, dosya/branch silme gibi geri alınamaz işlemlerden önce her zaman açıkça onay iste.
+- Önemli değişiklikleri küçük, açıklayıcı commit'ler halinde kaydet; büyük ve karışık commit yapma.
+- Emin olmadığın bir durumda varsayım yapıp devam etme, sor.
+
+## Çalışma düzeni
+- Bu depo/klasör birden fazla konu veya tez bölümü içerebilir. Hangi bölüm/konu üzerinde çalışıldığını netleştir, karıştırma.
+- Yeni bir konuya geçerken önceki konunun dosyalarına dokunma.
+
+## Veri bütünlüğü ve doğrulama (matematik/analiz işleri)
+- Kullanıcı gerçek verilerle karmaşık matematiksel/istatistiksel analizler yaptıracak. Bu tür işlerde:
+  - Veriler ASLA değiştirilmez, tahmin edilmez, uydurulmaz veya "düzeltilmez" — kullanıcıdan gelen ham veri neyse odur. Veri üzerinde kullanıcının açık isteği/onayı olmadan "kafaya göre" hiçbir keyfi işlem (yuvarlama, dışlama, temizleme, örnekleme vb.) yapılmaz.
+  - Her hesaplama doğrulanmalı: adımlar açıkça gösterilmeli, mümkünse ikinci/bağımsız bir yöntemle çapraz kontrol edilmeli.
+  - İş karmaşıksa göreve rol bazlı bölünebilir: bir kısım hesaplamayı yapar, ayrı bir "rol" (ayrı bir prompt/agent) bunu bağımsızca denetler. Kullanıcı bu şekilde bir doğrulama isterse uygulanmalı.
+  - Sonuç kesin değilse veya bir varsayım yapıldıysa bu açıkça belirtilmeli, kesinmiş gibi sunulmamalı.
+
+## Tekrarlanan talimatlar → kalıcı kural
+- Kullanıcı aynı talimatı/tercihi birden fazla kez söylerse bu geçici bir istek değil, KALICI bir kural adayı sayılır.
+- Böyle bir tekrar fark edildiğinde SESSİZCE/OTOMATİK olarak bu dosyaya eklenmez. Önce kullanıcıya "bunu kalıcı kural olarak CLAUDE.md'ye eklemek ister misin?" diye sorulur, kullanıcı onaylarsa eklenir.
+
+## Memory (claude.ai hesap özelliği) hakkında
+- Memory, CLAUDE.md'den farklı bir şeydir: CLAUDE.md bu depoya özel, git ile versiyonlanan kurallardır. Memory ise claude.ai hesap ayarlarından (Settings → Capabilities → Memory) açılan, tüm sohbetlerde hatırlanan kişisel bir özelliktir.
+- Bu hesap ayarı kullanıcı tarafından açılmalıdır, Claude bunu kullanıcı adına açamaz.
+
+## Sohbet uzunluğu
+- Sohbet çok uzayıp yavaşladığında kullanıcıya `/compact` komutunu kullanması önerilmeli.
+
+## Yeni oturuma başlarken kontrol listesi
+Yeni bir sohbet/oturuma başlarken şu 3 soru netleştirilmeli:
+1. Hangi bölüm/konu üzerinde çalışılıyor? (`tez/`, `veri/`, `analiz/`, `kaynaklar/` altında hangisi)
+2. Tez yazımı mı, kod/analiz mi yapılıyor?
+3. Bir önceki konudan geçiş varsa `/clear` yapıldı mı?</code></pre>
+  </section>
+
+  <!-- 4. SKILLER -->
+  <section class="card mint" id="skiller">
+    <span class="tag">🟩 Yapılacaklar</span>
+    <h2>Skill dosyaları — nereye, nasıl</h2>
+    <p>Her skill kendi klasörüne <code>SKILL.md</code> adıyla konur. Klasör adı skill'in adı olmalı.</p>
+
+    <h3>1) <span class="filepath">.claude/skills/token-efficient/SKILL.md</span></h3>
+    <pre class="code"><div class="code-head"><span>token-efficient/SKILL.md</span><button class="copy-btn" onclick="copyCode(this)">Kopyala</button></div><code>---
+name: token-efficient
+description: Use this skill whenever the user's request is about code, terminal/CLI output, technical or data analysis, debugging, scripts, git operations, or any repetitive/automated task — make the response as terse and token-efficient as possible while staying correct. Trigger proactively for these contexts even if the user doesn't explicitly ask for "short" or "concise" answers. Do NOT trigger for thesis writing, academic prose, literature review, or any request asking for explanatory, discursive, or publication-quality writing — those need full detail, not brevity.
+---
+
+# Token-Efficient Responses
+
+## When this applies
+Coding, terminal output, data/statistical analysis, debugging, scripts, git operations, repetitive or automated tasks. If the user is asking for thesis text, academic writing, literature summaries, or anything meant to be read as prose in a document, skip this skill entirely and write normally — brevity there would remove exactly the detail that content needs.
+
+## Be deliberate about token spend
+Every extra sentence, restated context, or unnecessary tool call in this mode costs real tokens — treat it as a budget, not an afterthought. Before responding, ask: does this word carry information the user doesn't already have? If not, cut it.
+
+## Why
+Every filler sentence, restated question, and unrequested caveat costs tokens and reading time without adding information the user doesn't already have. In high-volume or automated coding work this adds up fast. The goal is not to sound abrupt — it's to say only what carries information.
+
+## How to write tersely without losing correctness
+
+- **Skip openers and closers.** No "Sure!", "Great question!", "I hope this helps!", "Let me know if you have questions!". Start with the answer.
+- **Don't restate the request.** The user already knows what they asked.
+- **Lead with the result**, then the minimum supporting detail needed to trust it (a file:line reference, a one-line reason) — not a full narrated derivation.
+- **Comments in code:** none by default. Add a single-line comment only when it captures a non-obvious *why* (a workaround, a hidden constraint) — never a *what* a good identifier already says.
+- **Don't over-engineer solutions.** If the task is a one-line fix, give a one-line fix — not a refactor, a new abstraction, or defensive handling for cases that can't happen.
+- **Skip unrequested caveats and alternatives.** If the user wants option B, don't append a paragraph about options C and D unless they materially change correctness.
+- **Tables/lists over paragraphs** when comparing more than two things.
+
+## What NOT to cut
+- Never drop a step that affects correctness (e.g. a required verification, a data-integrity check, a caveat about an assumption made in a calculation). Terse means no filler — it does not mean skipping substance the user needs to trust the result.
+- If this repo's CLAUDE.md has data-integrity or verification rules, those always win over brevity — show the verification, just show it tersely.
+
+## Example
+
+**Verbose (avoid):**
+&gt; Sure! I'd be happy to help you fix this bug. Looking at your code, I can see that the issue is in the `calculate_total` function. The problem is that you're not handling the case where the list is empty, which causes a division by zero error. Here's the fix:
+&gt; ```python
+&gt; def calculate_total(items):
+&gt;     # Check if the list is empty first
+&gt;     if len(items) == 0:
+&gt;         return 0
+&gt;     return sum(items) / len(items)
+&gt; ```
+&gt; I hope this helps! Let me know if you have any other questions.
+
+**Terse (use this):**
+&gt; `calculate_total` divides by zero on an empty list — `example.py:12`.
+&gt; ```python
+&gt; def calculate_total(items):
+&gt;     if not items:
+&gt;         return 0
+&gt;     return sum(items) / len(items)
+&gt; ```</code></pre>
+
+    <h3>2) <span class="filepath">.claude/skills/veri-dogrulama/SKILL.md</span></h3>
+    <pre class="code"><div class="code-head"><span>veri-dogrulama/SKILL.md</span><button class="copy-btn" onclick="copyCode(this)">Kopyala</button></div><code>---
+name: veri-dogrulama
+description: Kullanıcı gerçek verilerle matematiksel, istatistiksel veya sayısal bir hesaplama/analiz istediğinde bu skill'i kullan (örn. ortalama, korelasyon, regresyon, hipotez testi, herhangi bir formül uygulaması). Kullanıcı açıkça "doğrula" demese bile, sonuç yanlış çıkarsa ciddi sonuçları olacağı için (tez/akademik çalışma) her sayısal hesaplamada bu skill'i tetikle.
+---
+
+# Veri Doğrulama
+
+## Neden
+Bu, gerçek veriyle yapılan ve tez/akademik çalışmaya girecek bir hesaplama. Yanlış bir sonucun sessizce geçmesi, kullanıcının çalışmasına yanlış bilgi olarak girer. Bu yüzden "muhtemelen doğrudur" yeterli değil — hesaplama görülebilir ve çapraz kontrol edilebilir olmalı.
+
+## Yapılacaklar (her sayısal hesaplamada)
+
+1. **Veriyi olduğu gibi kullan.** Girdi veride hiçbir değişiklik (yuvarlama, dışlama, temizleme, örnekleme) yapma — kullanıcı açıkça istemedikçe.
+2. **Hesaplama adımlarını göster.** Sadece sonucu değil, ara adımları da yaz (formül, kullanılan değerler, ara sonuçlar).
+3. **Bağımsız bir ikinci yöntemle çapraz kontrol et.** Mümkünse farklı bir hesaplama yolu, farklı bir formülasyon veya "ilk sonucu unutup baştan hesapla" mantığıyla ikinci bir geçiş yap.
+4. **İki sonuç karşılaştır.**
+   - Uyuşuyorsa: sonucu ver, hangi iki yöntemle doğrulandığını kısaca belirt.
+   - Uyuşmuyorsa: bunu SUSMA, açıkça söyle, farkın nereden geldiğini araştır, kullanıcıya bildir.
+5. **Varsayım yaptıysan açıkça yaz.** ("X dağılımı normal kabul edildi", "eksik veri şu şekilde ele alındı" gibi) — sessizce geçme, kesinmiş gibi sunma.
+6. **Karmaşık/kritik hesaplamalarda role bölme öner.** İş büyükse, kullanıcıya "bunu ayrı bir oturumda/promptla bağımsız biri gibi tekrar kontrol ettirebilirim, ister misin?" diye sor.
+
+## Ne yapma
+- Sonucu tek bir yöntemle hesaplayıp direkt sunma.
+- "Muhtemelen doğrudur" gibi belirsiz ifadelerle geçiştirme — ya doğrula ya da doğrulanmadığını açıkça söyle.
+- Veriyi "daha temiz görünsün" diye ufak tefek düzeltme — bu kesinlikle yasak (bkz. kök `CLAUDE.md`).</code></pre>
+  </section>
+
+  <!-- 5. PROMPT ŞABLONLARI -->
+  <section class="card rose" id="promptlar">
+    <span class="tag">🟥 Kopyala-Yapıştır</span>
+    <h2>Tüm prompt şablonları</h2>
+    <p><code>prompt-sablonlari.md</code> dosyasındaki 11 bölümün tamamı — hiçbiri atlanmadı.</p>
+
+    <h3>1 · Loop örneği</h3>
+    <p>Bir işi belirli aralıklarla otomatik tekrarlatmak için:</p>
+    <pre class="code"><div class="code-head"><span>Prompt</span><button class="copy-btn" onclick="copyCode(this)">Kopyala</button></div><code>/loop 30m "şu klasördeki yeni veri dosyalarını kontrol et, yeni bir şey varsa özetle"</code></pre>
+    <p>Not: tez/araştırma çalışması için genelde gerekmez — sadece nasıl göründüğünü örnek olarak gösteriyoruz.</p>
+
+    <h3>2 · Goal (hedef) örneği</h3>
+    <p>Bir oturuma başlarken büyük resmi netleştirmek için:</p>
+    <pre class="code"><div class="code-head"><span>Prompt</span><button class="copy-btn" onclick="copyCode(this)">Kopyala</button></div><code>Hedef: [örn. "Tezin Bölüm 3'ünü Ağustos sonuna kadar bitirmek"]
+Şu an neredeyim: [örn. "veri toplama bitti, analiz aşamasındayım"]
+Bu oturumda istediğim: [somut, küçük ve net bir adım]
+Bu oturum sonunda başarı kriteri: [ne tamamlanmış olmalı]</code></pre>
+
+    <h3>3 · Skill'i doğrudan çağıran örnek</h3>
+    <p><code>token-efficient</code> veya <code>veri-dogrulama</code> skill'ini bilerek devreye sokmak istiyorsan:</p>
+    <pre class="code"><div class="code-head"><span>Prompt</span><button class="copy-btn" onclick="copyCode(this)">Kopyala</button></div><code>token-efficient skill'ini kullanarak şu kodu incele: [dosya/kod]</code></pre>
+    <pre class="code"><div class="code-head"><span>Prompt</span><button class="copy-btn" onclick="copyCode(this)">Kopyala</button></div><code>veri-dogrulama skill'ine göre şu hesaplamayı yap ve çapraz kontrol et: [görev]</code></pre>
+    <p>Not: Bu skill'ler zaten uygun bağlamda otomatik devreye giriyor, açıkça çağırmak zorunda değilsin — emin olmak istersen bu şekilde belirtebilirsin.</p>
+
+    <h3>4 · Veri analizi + doğrulama örneği</h3>
+    <pre class="code"><div class="code-head"><span>Prompt</span><button class="copy-btn" onclick="copyCode(this)">Kopyala</button></div><code>Bağlam: [konu/bölüm]
+Veri: [gerçek veri, değiştirilmeyecek]
+Görev: [ne hesaplanacak]
+Doğrulama: sonucu bağımsız bir yöntemle çapraz kontrol et,
+           varsayım varsa açıkça belirt
+Çıktı formatı: [tablo / metin / sadece sayı vb.]</code></pre>
+
+    <h3>5 · Artifact örneği</h3>
+    <p><strong>Ne işe yarar:</strong> Claude'un ürettiği içeriği (grafik, tablo, rapor sayfası) ayrı, düzenli bir görünümde gösterir — sohbet içine gömülü metin yerine.</p>
+    <p><strong>Ne zaman kullanılır:</strong> Bir analiz sonucunu grafikle görmek istediğinde, ya da bulgularını düzenli bir rapor/sayfa halinde görmek istediğinde.</p>
+    <pre class="code"><div class="code-head"><span>Prompt</span><button class="copy-btn" onclick="copyCode(this)">Kopyala</button></div><code>[X] verisindeki [Y] dağılımını grafikle göster,
+görsel bir rapor/sayfa olarak sun.</code></pre>
+
+    <h3>6 · Google Drive bağlantısı</h3>
+    <p><strong>Ne işe yarar:</strong> Metnini zaten Google Docs'ta tutuyorsan, Drive'ı bağlarsan Claude dosyayı doğrudan okuyabilir — kopyala-yapıştıra gerek kalmaz.</p>
+    <p><strong>Nasıl açılır:</strong> claude.ai → Settings → Connectors → Google Drive → Connect.</p>
+    <pre class="code"><div class="code-head"><span>Prompt (bağladıktan sonra)</span><button class="copy-btn" onclick="copyCode(this)">Kopyala</button></div><code>Google Drive'daki "[dosya adı]" belgesini oku,
+[şu bölümü/kısmı] için önerilerini yaz.</code></pre>
+    <p>Not: Bu bağlıysa Claude dosyayı okuyabilir ama <strong>senin izinin olmadan üzerine yazmaz/değiştirmez</strong> — bu zaten CLAUDE.md kuralı.</p>
+
+    <h3>7 · Routine örneği</h3>
+    <p><strong>Ne işe yarar:</strong> Belirli bir gün/saatte otomatik olarak sana bir mesaj/hatırlatma gönderir. Loop'tan farkı: Loop kısa aralıklı, teknik/otomatik kontroller için; Routine daha uzun vadeli, planlı hatırlatmalar için (örn. haftalık).</p>
+    <pre class="code"><div class="code-head"><span>Prompt</span><button class="copy-btn" onclick="copyCode(this)">Kopyala</button></div><code>Her Pazartesi sabah 9'da bana şunu sor:
+"Bu hafta tezde hangi bölüm üzerinde çalışacaksın?"</code></pre>
+    <p>Not: Bunu kurmak istersen Claude'a söylemen yeterli — kendi kendine otomatik kurmaz, senin onayınla kurar.</p>
+
+    <h3>8 · Project vs Cowork — hangisi ne zaman</h3>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th></th><th>Project</th><th>Cowork</th></tr></thead>
+        <tbody>
+          <tr><td>Ne</td><td>Bir konuya ait dosya/bağlamı saklayan "klasör"</td><td>Claude'un birden fazla adımı <strong>kendi başına</strong> yürüttüğü çalışma modu</td></tr>
+          <tr><td>Sen ne yaparsın</td><td>Konuşursun, sorarsın, birlikte yazarsın — her adımı sen yönlendirirsin</td><td>Görevi tarif edersin, Claude arka planda birden fazla adımı senin sürekli müdahalen olmadan yapar</td></tr>
+          <tr><td>Ne zaman kullan</td><td>Tez bölümü yazarken, literatür tartışırken, taslak üzerinde ileri-geri konuşurken</td><td>"Şu 10 dosyayı tara, ortak temaları bul ve rapor et" gibi çok adımlı, arka planda yapılabilecek işler</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p><strong>Pratik kural:</strong> Tek dosyayı okuyup tartışacaksan / birlikte yazacaksan → Project. Çok sayıda dosyayı tarama/özetleme/karşılaştırma gibi kendi başına yürütülebilecek bir işse → Cowork düşünülebilir.</p>
+    <p><strong>Uyarı:</strong> Cowork daha bağımsız çalışır, ara adımlarda durup sormaz — "her adımda onay" tercihiyle kısmen çelişir. Veri bütünlüğünün kritik olduğu, gerçek veriyle yapılan işlerde Cowork yerine normal Claude Code + adım adım onay akışı tercih edilmeli.</p>
+    <p><em>Project ne zaman:</em> tez bölümü taslağı tartışmak · birkaç makaleyi (PDF) yükleyip karşılaştırmak · danışmanla yazışma taslağı · sürekli dönülen bir referans konusu.</p>
+    <p><em>Cowork ne zaman:</em> internette kaynak bulup liste çıkarmak · kaynakça formatlama gibi tekrarlayan ama kritik olmayan işler · sonucu kontrol etmenin yeterli olduğu işler.</p>
+
+    <h3>9 · Claude Code ne zaman kullanılır</h3>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>İş</th><th>Nerede</th></tr></thead>
+        <tbody>
+          <tr><td>Dosyalara/repoya gerçekten dokunmak gerekiyor</td><td>Claude Code</td></tr>
+          <tr><td>Git işlemleri (commit, push)</td><td>Claude Code</td></tr>
+          <tr><td>Sadece konuşmak, taslak yazmak, fikir tartışmak</td><td>Normal Claude sohbeti (+ Project)</td></tr>
+          <tr><td>Metnini repo'da dosya olarak tutup doğrudan düzenletmek</td><td>Claude Code</td></tr>
+          <tr><td>Metnini Google Docs'ta tutuyorsan (Drive bağlantısıyla)</td><td>Normal Claude sohbeti</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p><strong>Kısaca:</strong> Elinde gerçek bir dosya/repo/veri var ve Claude'un ona dokunmasını istiyorsan → Code. Sadece kafa yormak/yazı yazmak istiyorsan → normal sohbet.</p>
+
+    <h3>10 · Üçü birden — tek satırlık karar kuralı</h3>
+    <ul>
+      <li><strong>Gerçek veri/hesaplama/repo dosyası</strong> var → <strong>Code</strong></li>
+      <li><strong>Konuşma/fikir/taslak</strong>, dosyaya dokunmaya gerek yok → <strong>Project</strong></li>
+      <li><strong>Düşük riskli, çok adımlı</strong> bir toplama/araştırma işi, sonucu kontrol etmen yeterli → <strong>Cowork</strong></li>
+    </ul>
+  </section>
+
+  <!-- 6. FORMÜL -->
+  <section class="card amber" id="formul">
+    <span class="tag">🟨 Temel Kavram</span>
+    <h2>Genel prompt yazma formülü (Yap/Yapma)</h2>
+    <p>Uzun, birleşik cümleler yerine net maddeler kullan — dağınık bir cümlede detay atlanabilir, madde madde yazınca atlanmaz.</p>
+
+    <h3>1) Yap / Yapma şeklinde ayır</h3>
+    <pre class="code"><div class="code-head"><span>Kalıp</span><button class="copy-btn" onclick="copyCode(this)">Kopyala</button></div><code>Yapılacaklar:
+- [net madde]
+- [net madde]
+
+Yapılmayacaklar / Dikkat et:
+- [kaçınılması gereken şey]</code></pre>
+
+    <h3>2) Her istekte şu 4 bilgiyi sırayla ver</h3>
+    <ol>
+      <li><strong>Amaç</strong> — Ne yapmak istiyorsun?</li>
+      <li><strong>Kapsam</strong> — Hangi dosya/yer değişecek?</li>
+      <li><strong>İçerik/Detay</strong> — Tam olarak ne olmalı?</li>
+      <li><strong>Çıktı formatı</strong> — Nasıl sunmamı istiyorsun? (mesaj metni, tablo, kod vb.)</li>
+    </ol>
+
+    <h3>3) Genel kalıp</h3>
+    <pre class="code"><div class="code-head"><span>Kalıp</span><button class="copy-btn" onclick="copyCode(this)">Kopyala</button></div><code>GÖREV: [ne yapılacak]
+
+ANA MESAJ / İÇERİK:
+- [madde 1]
+- [madde 2]
+
+EKLENECEK ADIMLAR:
+1. ...
+2. ...
+
+YAPMA:
+- [kaçınılacak şey]</code></pre>
+
+    <h3>4) Doldurulmuş örnek</h3>
+    <pre class="code"><div class="code-head"><span>Örnek</span><button class="copy-btn" onclick="copyCode(this)">Kopyala</button></div><code>GÖREV: tez/README.md dosyasını güncelle.
+
+AMAÇ: Bu klasöre ne tür makaleler/notlar koyacağımı netleştirmek.
+
+YAPILACAKLAR:
+- 3 maddelik kısa bir liste oluştur (hangi tür dosya, nasıl adlandırılacak, nereye konacak)
+- Mevcut dosya yapısıyla tutarlı ol
+
+YAPMAYACAKLAR:
+- Tez yazımına henüz başlama, sadece altyapı/README güncellemesi yap
+- Diğer klasörlere (veri/, analiz/) dokunma
+
+ÇIKTI FORMATI: Güncellenmiş README.md dosyası, madde madde.</code></pre>
+    <p>Bu formatla yazınca hiçbir detay atlanmadan, tam istenen şekilde yapılır.</p>
+  </section>
+
+  <!-- 7. YOL HARİTASI -->
+  <section class="card mint" id="yol-haritasi">
+    <span class="tag">🟩 Yapılacaklar</span>
+    <h2>Yol haritası — klasörler sırasıyla nasıl doldurulur</h2>
+    <ol class="steps">
+      <li><strong>1. Aşama — Veri Girişi (<span class="filepath">veri/</span>):</strong> Ham CSV/Excel dosyalarını, anket sonuçlarını buraya koy. Bu klasördeki dosyalar bir daha değiştirilmez.</li>
+      <li><strong>2. Aşama — Kaynak Toplama (<span class="filepath">kaynaklar/</span>):</strong> Makale özetlerini, literatür notlarını buraya ekle. Her bulgu, kaynağın kendisiyle (alıntı/sayfa no) desteklenmeli.</li>
+      <li><strong>3. Aşama — Analiz &amp; Kod (<span class="filepath">analiz/</span>):</strong> Claude Code ile veri işleme/istatistik scriptlerini burada çalıştır; <code>veri-dogrulama</code> skill'i devreye girer.</li>
+      <li><strong>4. Aşama — Yazım (<span class="filepath">tez/</span>):</strong> Bulgular ve kaynaklar hazır olunca, asıl metni burada (ya da Google Docs'ta) yaz — <code>token-efficient</code> skill'i burada devreye girmez, detaylı yazım korunur.</li>
+    </ol>
+  </section>
+
+  <footer class="end">Bu doküman, kişisel bir çalışma sisteminin tam kopyası — kendi konuna göre serbestçe uyarlayabilirsin.</footer>
+</div>
+
+<script>
+  function copyCode(btn){
+    var pre = btn.closest('pre.code');
+    var codeEl = pre.querySelector('code');
+    var text = codeEl.innerText;
+    navigator.clipboard.writeText(text).then(function(){
+      var old = btn.textContent;
+      btn.textContent = 'Kopyalandı ✓';
+      setTimeout(function(){ btn.textContent = old; }, 1500);
+    });
+  }
+</script>
+</body>
+</html>
