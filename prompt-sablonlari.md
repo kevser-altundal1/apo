@@ -10,6 +10,7 @@
 7. [Routine — zamanlanmış hatırlatma](#7-routine-örneği)
 8. [Project vs Cowork — hangisi ne zaman](#8-project-vs-cowork--hangisi-ne-zaman)
 9. [Claude Code ne zaman kullanılır](#9-claude-code-ne-zaman-kullanılır)
+10. [Üçü birden — karar kuralı](#10-üçü-birden--tek-satırlık-karar-kuralı)
 
 ---
 
@@ -108,6 +109,19 @@ Not: Bunu kurmak istersen bana söyle, ben kurabilirim — kendi kendine otomati
 
 **Uyarı:** Cowork daha bağımsız çalışır, ara adımlarda durup sormaz — "her adımda onay" tercihinle kısmen çelişir. Veri bütünlüğünün kritik olduğu, gerçek veriyle yapılan işlerde Cowork yerine normal Claude Code + adım adım onay akışını tercih et. Cowork'ü daha çok, sonucu kontrol edip sürecini denetlemene gerek duymadığın düşük riskli işlerde kullan.
 
+**Somut örnekler:**
+
+*Project ne zaman:*
+- Bir tez bölümünün taslağını tartışmak, fikir geliştirmek (metni sonunda sen `tez/` klasörüne kendin koyarsın)
+- Birkaç makaleyi (PDF) doğrudan yükleyip "bunları karşılaştır, tartış" demek — repoya koymaya gerek olmayan, tek seferlik kaynaklar
+- Danışmanınla yazışma taslağı, sunum notu gibi bu repoyla ilgisi olmayan işler
+- Sürekli dönüp baktığın bir referans konusu (örn. "istatistik terimleri")
+
+*Cowork ne zaman:*
+- "İnternette [X] konusunda kaynak bul, başlık+özetlerini bir listeye çıkar" gibi araştırma/toplama işleri
+- Kaynakça formatlama, çok sayıda dosyayı yeniden adlandırma gibi tekrarlayan ama **kritik olmayan** işler
+- Sonucu görüp kontrol etmenin yeterli olduğu, sürecin nasıl yapıldığının önemli olmadığı işler
+
 ---
 
 ## 9. Claude Code ne zaman kullanılır
@@ -119,6 +133,16 @@ Not: Bunu kurmak istersen bana söyle, ben kurabilirim — kendi kendine otomati
 | Sadece konuşmak, taslak yazmak, fikir tartışmak — dosya sistemine dokunmadan | Normal **Claude sohbeti** (+ Project) |
 | Tez metnini repo'da dosya olarak tutup Claude'un doğrudan düzenlemesini istiyorsan | **Claude Code** |
 | Tez metnini Google Docs'ta tutuyorsan (Drive bağlantısıyla) | Normal **Claude sohbeti** |
+
+**Kısaca:** Elinde gerçek bir dosya/repo/veri var ve Claude'un ona dokunmasını istiyorsan → Code. Sadece kafa yormak/yazı yazmak istiyorsan → normal sohbet.
+
+---
+
+## 10. Üçü birden — tek satırlık karar kuralı
+
+- **Gerçek veri/hesaplama/repo dosyası** var → **Code**
+- **Konuşma/fikir/taslak**, dosyaya dokunmaya gerek yok → **Project**
+- **Düşük riskli, çok adımlı** bir toplama/araştırma işi, sonucu kontrol etmen yeterli → **Cowork**
 
 **Kısaca:** Elinde gerçek bir dosya/repo/veri var ve Claude'un ona dokunmasını istiyorsan → Code. Sadece kafa yormak/yazı yazmak istiyorsan → normal sohbet.
 
