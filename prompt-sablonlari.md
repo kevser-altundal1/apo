@@ -9,6 +9,7 @@
 6. [Google Drive bağlantısı](#6-google-drive-bağlantısı)
 7. [Routine — zamanlanmış hatırlatma](#7-routine-örneği)
 8. [Project vs Cowork — hangisi ne zaman](#8-project-vs-cowork--hangisi-ne-zaman)
+9. [Claude Code ne zaman kullanılır](#9-claude-code-ne-zaman-kullanılır)
 
 ---
 
@@ -106,6 +107,20 @@ Not: Bunu kurmak istersen bana söyle, ben kurabilirim — kendi kendine otomati
 - Çok sayıda dosyayı tarama/özetleme/karşılaştırma gibi kendi başına yürütülebilecek bir işse → **Cowork** düşünülebilir.
 
 **Uyarı:** Cowork daha bağımsız çalışır, ara adımlarda durup sormaz — "her adımda onay" tercihinle kısmen çelişir. Veri bütünlüğünün kritik olduğu, gerçek veriyle yapılan işlerde Cowork yerine normal Claude Code + adım adım onay akışını tercih et. Cowork'ü daha çok, sonucu kontrol edip sürecini denetlemene gerek duymadığın düşük riskli işlerde kullan.
+
+---
+
+## 9. Claude Code ne zaman kullanılır
+
+| İş | Nerede |
+|---|---|
+| Dosyalara/repoya gerçekten dokunmak gerekiyor (veri okumak, script çalıştırmak, `tez/`, `veri/`, `analiz/` klasörlerini düzenlemek) | **Claude Code** |
+| Git işlemleri (commit, push) | **Claude Code** |
+| Sadece konuşmak, taslak yazmak, fikir tartışmak — dosya sistemine dokunmadan | Normal **Claude sohbeti** (+ Project) |
+| Tez metnini repo'da dosya olarak tutup Claude'un doğrudan düzenlemesini istiyorsan | **Claude Code** |
+| Tez metnini Google Docs'ta tutuyorsan (Drive bağlantısıyla) | Normal **Claude sohbeti** |
+
+**Kısaca:** Elinde gerçek bir dosya/repo/veri var ve Claude'un ona dokunmasını istiyorsan → Code. Sadece kafa yormak/yazı yazmak istiyorsan → normal sohbet.
 
 ---
 
