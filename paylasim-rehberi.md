@@ -1,30 +1,27 @@
-# Bu Repo Nedir?
+# Bu Repo Nedir? (Örnek/Öğretici Amaçlı)
 
-Tez çalışmamı Claude ile düzenli yürütmek için kurduğum bir sistem. Kurallar, örnek promptlar ve klasör yapısı hazır. Claude Code'a bağlayınca hepsi otomatik çalışır.
+Bu benim kişisel tez reposu — burada senin çalışmanı önermem. Bunu sana, "Claude'u düzenli nasıl kullanırım" için bir **örnek/şablon** olsun diye gönderiyorum. Buradan sadece işine yarayan fikri al, kendi sistemini kur.
 
-**Repo linki:** https://github.com/kevser-altundal1/apo
+**Repo linki (bakmak için):** https://github.com/kevser-altundal1/apo
 
-## İçinde ne var?
+## Buradan ne öğrenirsin?
 
-| Dosya/Klasör | Ne işe yarar |
+| Dosya/Klasör | Ne öğretir |
 |---|---|
-| `README.md` | Repo haritası |
-| `CLAUDE.md` | Claude'un otomatik uyduğu kurallar |
-| `prompt-sablonlari.md` | Kopyala-doldur-kullan örnek promptlar |
-| `.claude/skills/` | Otomatik devreye giren davranışlar |
-| `tez/`, `veri/`, `analiz/`, `kaynaklar/` | Çalışma klasörleri |
+| `CLAUDE.md` | Claude'a kalıcı kural nasıl yazılır (örn. "veriye dokunma", "kısa cevap ver") |
+| `.claude/skills/` | Bir "skill" (otomatik devreye giren davranış) nasıl yazılır |
+| `prompt-sablonlari.md` | Hangi durumda Project / Cowork / Claude Code kullanılır, örnek promptlar |
+| `README.md` | Bir repoyu nasıl kendine göre haritalandırırsın |
 
-## Nasıl başlarsın?
+## Kendi sistemini nasıl kurarsın
 
-1. claude.ai'ye giriş yap.
-2. Sol menüden **Code** sekmesine tıkla.
-3. **New** ile yeni bir session aç.
-4. **"+ Select repo..."** butonuna tıkla.
-5. Bu repoyu (`kevser-altundal1/apo`) seç, ya da kendi fork'unu oluşturup onu seç.
-6. Session açılınca `CLAUDE.md` otomatik okunur, kurallar devreye girer.
+1. Kendi bilgisayarında (ya da Drive'ında) boş bir klasör aç.
+2. Bu repodan işine yarayan dosyaları (`CLAUDE.md`, `.claude/skills/`, `prompt-sablonlari.md`) kopyala, kendi klasörüne koy, kendi konuna göre düzenle.
+3. Claude Code'u nasıl kullanacağına karar ver:
+   - **Tarayıcıdan** (claude.ai → **Code** sekmesi): hiçbir şey indirmene gerek yok. Klasörünü GitHub'a repo olarak koyarsın, oradan seçip bağlarsın.
+   - **Terminalden** (CLI): bilgisayarına kurman gerekir. Terminale şunu yaz: `npm install -g @anthropic-ai/claude-code`. Kurulum bitince klasörüne git, `claude` yaz, başlar.
+4. Claude'a klasörünü/reponu bağla, konuş — ihtiyacına göre kuralları (`CLAUDE.md`) ve skill'leri sen yazarsın.
 
-Detaylar için repodaki `README.md` ve `prompt-sablonlari.md`'ye bak.
+## Not
 
-## Kendi işine uyarlamak istersen
-
-Bu yapı benim tez konuma göre kuruldu. Tüm dosyalar düz metin — `CLAUDE.md`'deki kuralları değiştirebilir, kendi skill'lerini ekleyebilir, klasörleri kendine göre düzenleyebilirsin.
+Buradaki bilgilerin çoğu zaten Claude'un genel dokümantasyonunda var. Ben sadece kendi ihtiyacım için basitçe, tek yerde toplu hale getirdim. Sen de kendi konuna göre böyle bir sistem kurabilirsin — buradaki dosyalar sana sadece "nasıl bir şey" olduğunu göstermek için.
