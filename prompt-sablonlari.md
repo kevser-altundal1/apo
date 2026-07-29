@@ -144,8 +144,6 @@ Not: Bunu kurmak istersen bana söyle, ben kurabilirim — kendi kendine otomati
 - **Konuşma/fikir/taslak**, dosyaya dokunmaya gerek yok → **Project**
 - **Düşük riskli, çok adımlı** bir toplama/araştırma işi, sonucu kontrol etmen yeterli → **Cowork**
 
-**Kısaca:** Elinde gerçek bir dosya/repo/veri var ve Claude'un ona dokunmasını istiyorsan → Code. Sadece kafa yormak/yazı yazmak istiyorsan → normal sohbet.
-
 ---
 
 **Emin olmadığım bir özellik var:** Claude Code arayüzünde "Dispatch (Beta)" diye bir menü öğesi gördüm ama tam olarak nasıl çalıştığından emin değilim. Sana yanlış bilgi vermemek için burada eklemedim — merak edersen birlikte inceleyebiliriz.
